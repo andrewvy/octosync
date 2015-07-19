@@ -1,0 +1,28 @@
+{
+  "name": "octosync",
+  "version": "1.0.0",
+  "description": "Sync github issues to RethinkDB",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrewvy/octosync.git"
+  },
+  "keywords": [
+    "github"
+  ],
+  "author": "Andrew Vy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andrewvy/octosync/issues"
+  },
+  "homepage": "https://github.com/andrewvy/octosync#readme",
+  "dependencies": {
+    "coffee-script": "^1.9.3",
+    "github": "^0.2.4",
+    "lodash": "^3.10.0",
+    "rethinkdb": "^2.0.2"
+  }
+}
