@@ -22,6 +22,7 @@
   "dependencies": {
     "coffee-script": "^1.9.3",
     "github": "^0.2.4",
+    "githubhook": "^1.2.0",
     "lodash": "^3.10.0",
     "rethinkdb": "^2.0.2"
   }

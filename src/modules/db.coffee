@@ -9,7 +9,7 @@ module.exports = class Database extends EventEmitter
 
 	getConfig: ->
 		host: @options.db_host
-		port: @options.port
+		port: @options.db_port
 
 	connect: ->
 		r.connect @getConfig(), (err, conn) =>
@@ -20,4 +20,5 @@ module.exports = class Database extends EventEmitter
 			@onConnection()
 
 	onConnection: ->
+		console.log "Successfully connected to RethinkDB on Port %d", @options.db_port
 		@emit 'connection'

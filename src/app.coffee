@@ -1,12 +1,16 @@
 _ = require 'lodash'
 
-Database = require './db'
+Database = require './modules/db'
+Webhook = require './modules/webhook'
 
 module.exports = class App
 	defaults:
 		db_host: "localhost"
 		db_name: "octosync"
 		db_port: 28015
+		webhook_path: "/octosync"
+		webhook_port: 27070
+		webhook_secret: ""
 		token: ""
 		username: ""
 		repository: ""
@@ -18,14 +22,12 @@ module.exports = class App
 
 		@options = _.defaults opts, @defaults
 
-		@_setupDatabase()
-		@_setupDatabaseListeners()
+		@db = @_setupDatabase()
+		@db.on 'connection', =>
+			@webhook = @_setupWebhook()
+			@_setupWebhookListeners()
 
-	_setupDatabase: ->
-		@db = new Database @options
-
-	_setupDatabaseListeners: ->
-		@db.on 'connection', @connected
-
-	connected: ->
-		console.log "Successfully connected to DB."
+	_setupDatabase: -> new Database @options
+	_setupWebhook: -> new Webhook @options
+	_setupWebhookListeners: ->
+		# Setup webhook
