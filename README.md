@@ -28,5 +28,5 @@ Available Options
 	webhook_secret: "GITHUB_WEBHOOK_SECRET"
 	token: "GITHUB_TOKEN"
 	username: "GITHUB_USERNAME"
-	`repository: "GITHUB_REPOSITORY"
+	repository: "GITHUB_REPOSITORY"
 ```
