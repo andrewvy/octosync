@@ -29,7 +29,6 @@ module.exports = class Sync extends EventEmitter
 
 	getNumberOfIssues: (options={}) ->
 		deferred = Q.defer()
-
 		opts = _.defaults @defaults(), options
 
 		@github_client.repos.get opts, (err, data) ->
@@ -42,7 +41,6 @@ module.exports = class Sync extends EventEmitter
 
 	getIssues: (options={}) ->
 		deferred = Q.defer()
-
 		opts = _.defaults @defaults(), options
 
 		@github_client.issues.repoIssues opts, (err, data) ->
@@ -55,7 +53,6 @@ module.exports = class Sync extends EventEmitter
 
 	getAllIssues: ->
 		deferred = Q.defer()
-
 		@getNumberOfIssues().done (issue_count) =>
 			times = Math.ceil(issue_count / 50)
 			promises = for i in [0..times]
