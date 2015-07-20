@@ -5,6 +5,7 @@ module.exports = (thinky) ->
 
 	User = require('./user')(thinky)
 	Label = require('./label')(thinky)
+	Milestone = require('./milesotne')(thinky)
 
 	Issue = thinky.createModel "Issue",
 		id: Number
@@ -22,6 +23,7 @@ module.exports = (thinky) ->
 
 	Issue.belongsTo User, "assignee", "assignee_id", "id"
 	Issue.belongsTo User, "creator", "creator_id", "id"
+	Issue.belongsTo Milestone, "milestone", "milestone_id", "id"
 	Issue.hasAndBelongsToMany Label, "labels", "id", "id"
 
 	Issue
