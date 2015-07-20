@@ -27,34 +27,49 @@ module.exports = class Sync extends EventEmitter
 	getClient: -> new Github { version: "3.0.0" }
 
 	syncUsers: ->
+		deferred = Q.defer()
 		console.time "sync_users"
 
 		@getAllUsers().then (users) ->
 			console.timeEnd "sync_users"
 			console.log "Finished syncing users."
+			deferred.resolve(users)
 		, (err) ->
 			console.timeEnd "sync_users"
 			console.error "Error syncing users.", err
+			deferred.reject(err)
+
+		deferred.promise
 
 	syncLabels: ->
+		deferred = Q.defer()
 		console.time "sync_labels"
 
 		@getAllLabels({per_page: 100}).then (labels) ->
 			console.timeEnd "sync_labels"
-			console.log "FInished syncing labels."
+			console.log "Finished syncing labels."
+			deferred.resolve(labels)
 		, (err) ->
 			console.timeEnd "sync_labels"
 			console.error "Error syncing labels.", err
+			deferred.reject(err)
+
+		deferred.promise
 
 	syncIssues: ->
+		deferred = Q.defer()
 		console.time "sync_issues"
 
 		@getAllIssues().then (issues) ->
 			console.timeEnd "sync_issues"
 			console.log "Finished syncing issues."
+			deferred.resolve(issues)
 		, (err) ->
 			console.timeEnd "sync_issues"
 			console.error "Error syncing issues.", err
+			deferred.reject(err)
+
+		deferred.promise
 
 	# -----------
 	# Getters

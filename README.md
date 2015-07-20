@@ -13,6 +13,16 @@ var options = {
 };
 
 var o = new Octosync(options);
+
+// On start, it will sync everything.
+o.start()
+
+// Returns promises
+o.syncUsers()
+o.syncLabels()
+o.syncIssues()
+
+
 ```
 
 Defaults to connecting to localhost DB on port `28015`.  

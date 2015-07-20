@@ -24,6 +24,7 @@ module.exports = class App extends EventEmitter
 
 		@options = _.defaults opts, @defaults
 
+	start: ->
 		@db = @_setupDatabase()
 		@webhook = @_setupWebhook()
 		@sync = @_setupSync()
