@@ -18,4 +18,5 @@ module.exports = class Database extends EventEmitter
 
 	setupModels: ->
 		User: require('../models/user')(@Thinky)
+		Label: require('../models/label')(@Thinky)
 		Issue: require('../models/issue')(@Thinky)
