@@ -39,9 +39,8 @@ module.exports = class App extends EventEmitter
 	getUserById: (id) -> @db.getUserById(id)
 
 	_setupDatabase: -> new Database @options
-	_setupWebhook: -> new Webhook @options
-	_setupSync: -> new Sync @_syncOptions()
-	_syncOptions: ->
+	_setupWebhook: -> new Webhook @_getOptions()
+	_setupSync: -> new Sync @_getOptions()
+	_getOptions: ->
 		db: @db
-		webhook: @webhook
 		options: @options

@@ -5,10 +5,9 @@ _ = require 'lodash'
 
 module.exports = class Sync extends EventEmitter
 	constructor: (opts) ->
-		{ @db, @webhook, @options } = opts
+		{ @db, @options } = opts
 
 		throw new Error "DB was not correctly instantiated." if !@db
-		throw new Error "Webhook was not correctly instantiated." if !@webhook
 		throw new Error "No Github Token found in options." if _.isEmpty(@options.token)
 
 		@github_client = @getClient()

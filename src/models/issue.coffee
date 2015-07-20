@@ -5,7 +5,7 @@ module.exports = (thinky) ->
 
 	User = require('./user')(thinky)
 	Label = require('./label')(thinky)
-	Milestone = require('./milesotne')(thinky)
+	Milestone = require('./milestone')(thinky)
 
 	Issue = thinky.createModel "Issue",
 		id: Number
