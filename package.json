@@ -24,6 +24,8 @@
     "github": "^0.2.4",
     "githubhook": "^1.2.0",
     "lodash": "^3.10.0",
-    "rethinkdb": "^2.0.2"
+    "q": "^1.4.1",
+    "rethinkdb": "^2.0.2",
+    "thinky": "^2.0.10"
   }
 }
