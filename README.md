@@ -2,29 +2,7 @@
 
 Syncs GitHub issues to a RethinkDB and gets real-time updates.
 
-```
-           MMM.           .MMM
-           MMMMMMMMMMMMMMMMMMM
-           MMMMMMMMMMMMMMMMMMM      ________________
-          MMMMMMMMMMMMMMMMMMMMM    |               |
-         MMMMMMMMMMMMMMMMMMMMMMM   | Octosync! <3~ |
-        MMMMMMMMMMMMMMMMMMMMMMMM   |_   ___________|
-        MMMM::- -:::::::- -::MMMM    |/
-         MM~:~   ~:::::~   ~:~MM
-    .. MMMMM::. .:::+:::. .::MMMMM ..
-          .MM::::: ._. :::::MM.
-             MMMM;:::::;MMMM
-      -MM        MMMMMMM
-      ^  M+     MMMMMMMMM
-          MMMMMMM MM MM MM
-               MM MM MM MM
-               MM MM MM MM
-            .~~MM~MM~MM~MM~~.
-         ~~~~MM:~MM~~~MM~:MM~~~~
-        ~~~~~~==~==~~~==~==~~~~~~
-         ~~~~~~==~==~==~==~~~~~~
-             :~==~==~==~==~~
-```
+`npm install octosync`
 
 ```javascript
 var Octosync = require('octosync')
@@ -53,4 +31,28 @@ Available Options
 	token: "GITHUB_TOKEN"
 	username: "GITHUB_USERNAME"
 	repository: "GITHUB_REPOSITORY"
+```
+
+```
+           MMM.           .MMM
+           MMMMMMMMMMMMMMMMMMM
+           MMMMMMMMMMMMMMMMMMM      ________________
+          MMMMMMMMMMMMMMMMMMMMM    |               |
+         MMMMMMMMMMMMMMMMMMMMMMM   | Octosync! <3~ |
+        MMMMMMMMMMMMMMMMMMMMMMMM   |_   ___________|
+        MMMM::- -:::::::- -::MMMM    |/
+         MM~:~   ~:::::~   ~:~MM
+    .. MMMMM::. .:::+:::. .::MMMMM ..
+          .MM::::: ._. :::::MM.
+             MMMM;:::::;MMMM
+      -MM        MMMMMMM
+      ^  M+     MMMMMMMMM
+          MMMMMMM MM MM MM
+               MM MM MM MM
+               MM MM MM MM
+            .~~MM~MM~MM~MM~~.
+         ~~~~MM:~MM~~~MM~:MM~~~~
+        ~~~~~~==~==~~~==~==~~~~~~
+         ~~~~~~==~==~==~==~~~~~~
+             :~==~==~==~==~~
 ```
