@@ -19,6 +19,7 @@ module.exports = class Sync extends EventEmitter
 		@syncUsers()
 		@syncLabels()
 		@syncIssues()
+		@syncMilestones()
 
 	defaults: ->
 		user: @options.username
@@ -32,7 +33,6 @@ module.exports = class Sync extends EventEmitter
 
 		@getAllUsers().then (users) ->
 			console.timeEnd "sync_users"
-			console.log "Finished syncing users."
 			deferred.resolve(users)
 		, (err) ->
 			console.timeEnd "sync_users"
@@ -47,7 +47,6 @@ module.exports = class Sync extends EventEmitter
 
 		@getAllLabels({per_page: 100}).then (labels) ->
 			console.timeEnd "sync_labels"
-			console.log "Finished syncing labels."
 			deferred.resolve(labels)
 		, (err) ->
 			console.timeEnd "sync_labels"
@@ -62,7 +61,6 @@ module.exports = class Sync extends EventEmitter
 
 		@getAllIssues().then (issues) ->
 			console.timeEnd "sync_issues"
-			console.log "Finished syncing issues."
 			deferred.resolve(issues)
 		, (err) ->
 			console.timeEnd "sync_issues"
@@ -71,9 +69,37 @@ module.exports = class Sync extends EventEmitter
 
 		deferred.promise
 
+	syncMilestones: ->
+		deferred = Q.defer()
+		console.time "sync_milestones"
+
+		@getAllMilestones().then (milestones) ->
+			console.timeEnd "sync_milestones"
+			deferred.resolve(milestones)
+		, (err) ->
+			console.timeEnd "sync_milestones"
+			console.error "Error syncing milestones.", err
+			deferred.reject(err)
+
+		deferred.promise
+
 	# -----------
 	# Getters
 	# -----------
+
+	getAllMilestones: (options={}) ->
+		deferred = Q.defer()
+		opts = _.defaults @defaults(), options
+
+		@github_client.issues.getAllMilestones opts, (err, data) =>
+			if (err)
+				deferred.reject err
+			else
+				@db.Models.Milestone.save(data, { conflict: "update" }).then (models) ->
+					deferred.resolve data
+
+		deferred.promise
+
 
 	getAllUsers: (options={}) ->
 		deferred = Q.defer()
