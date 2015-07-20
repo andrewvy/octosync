@@ -1,10 +1,11 @@
+{EventEmitter} = require 'events'
 _ = require 'lodash'
 
 Database = require './modules/db'
 Webhook = require './modules/webhook'
 Sync = require './modules/sync'
 
-module.exports = class App
+module.exports = class App extends EventEmitter
 	defaults:
 		db_host: "localhost"
 		db_name: "octosync"
