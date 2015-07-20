@@ -18,6 +18,7 @@ module.exports = (thinky) ->
 		updated_at: String
 		assignee_id: Number
 		creator_id: Number
+		milestone_id: Number
 
 	Issue.belongsTo User, "assignee", "assignee_id", "id"
 	Issue.belongsTo User, "creator", "creator_id", "id"

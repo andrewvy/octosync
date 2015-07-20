@@ -28,11 +28,15 @@ module.exports = class Database extends EventEmitter
 		if obj.assignee
 			obj.assignee_id = obj.assignee.id
 
+		if obj.milestone
+			obj.milestone_id = obj.milestone.id
+
 		obj.creator_id = obj.user.id
 
 		# Clean up relations
 		delete obj.user
 		delete obj.assignee
+		delete obj.milestone
 
 		obj
 
