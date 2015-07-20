@@ -4,7 +4,6 @@ r = require 'rethinkdb'
 module.exports = class Database extends EventEmitter
 	constructor: (@options) ->
 		@connection = null
-
 		@connect()
 
 	getConfig: ->

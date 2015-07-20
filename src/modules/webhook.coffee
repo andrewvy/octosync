@@ -2,6 +2,7 @@
 GithubHook = require 'githubhook'
 
 module.exports = class Webhook extends EventEmitter
+	events: ['issue_comment', 'issues', 'pull_request']
 	constructor: (@options) ->
 		options =
 			path: @options.webhook_path
@@ -17,6 +18,6 @@ module.exports = class Webhook extends EventEmitter
 		@github.listen()
 
 		@github.on '*', (event, repo, ref, data) ->
-			@emit event, @_formatEvent(repo, ref, data)
+			@emit event, @_formatEvent(event, repo, ref, data)
 
 	_formatEvent: (repo, ref, data) -> ""

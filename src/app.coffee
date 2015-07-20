@@ -2,6 +2,7 @@ _ = require 'lodash'
 
 Database = require './modules/db'
 Webhook = require './modules/webhook'
+Sync = require './modules/sync'
 
 module.exports = class App
 	defaults:
@@ -23,11 +24,15 @@ module.exports = class App
 		@options = _.defaults opts, @defaults
 
 		@db = @_setupDatabase()
+
 		@db.on 'connection', =>
 			@webhook = @_setupWebhook()
-			@_setupWebhookListeners()
+			@sync = @_setupSync()
 
 	_setupDatabase: -> new Database @options
 	_setupWebhook: -> new Webhook @options
-	_setupWebhookListeners: ->
-		# Setup webhook
+	_setupSync: -> new Sync @_syncOptions()
+	_syncOptions: ->
+		db: @db
+		webhook: @webhook
+		options: @options
