@@ -1,6 +1,6 @@
 {
   "name": "octosync",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "Sync github issues to RethinkDB",
   "main": "index.js",
   "scripts": {
