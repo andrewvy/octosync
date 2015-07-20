@@ -22,3 +22,5 @@ module.exports = (thinky) ->
 	Issue.belongsTo User, "assignee", "assignee_id", "id"
 	Issue.belongsTo User, "creator", "creator_id", "id"
 	Issue.hasAndBelongsToMany Label, "labels", "id", "id"
+
+	Issue

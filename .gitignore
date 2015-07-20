@@ -4,6 +4,7 @@ src/config.js
 .DS_Store
 npm-debug.log
 main.js
+rethinkdb_data/
 *~
 *.swp
 *.swo

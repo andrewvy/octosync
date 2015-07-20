@@ -7,3 +7,5 @@ module.exports = (thinky) ->
 		url: String
 		name: String
 		color: String
+
+	Label

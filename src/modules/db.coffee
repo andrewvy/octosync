@@ -1,4 +1,5 @@
 r = require 'rethinkdb'
+O = require '../utils/Object'
 thinky = require 'thinky'
 {EventEmitter} = require 'events'
 
@@ -20,3 +21,18 @@ module.exports = class Database extends EventEmitter
 		User: require('../models/user')(@Thinky)
 		Label: require('../models/label')(@Thinky)
 		Issue: require('../models/issue')(@Thinky)
+
+	formatIssue: (data) ->
+		obj = O.redefineProperty data, "user", "creator"
+
+		if obj.assignee
+			obj.assignee_id = obj.assignee.id
+
+		obj.creator_id = obj.user.id
+
+		# Clean up relations
+		delete obj.user
+		delete obj.assignee
+
+		obj
+

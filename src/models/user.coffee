@@ -9,3 +9,5 @@ module.exports = (thinky) ->
 		avatar_url: String
 		html_url: String
 		name: String
+
+	User
