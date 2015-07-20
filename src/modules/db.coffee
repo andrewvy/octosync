@@ -1,23 +1,18 @@
 r = require 'rethinkdb'
+thinky = require 'thinky'
 {EventEmitter} = require 'events'
 
 module.exports = class Database extends EventEmitter
+	Models: {}
 	constructor: (@options) ->
-		@connection = null
-		@connect()
+		@Thinky = thinky @getConfig()
+		@Models = @setupModels()
 
 	getConfig: ->
 		host: @options.db_host
 		port: @options.db_port
+		db: @options.db_name
 
-	connect: ->
-		r.connect @getConfig(), (err, conn) =>
-			throw err if err
-
-			@connection = conn
-			@connection.use @options.db_name
-			@onConnection()
-
-	onConnection: ->
-		console.log "Successfully connected to RethinkDB on Port %d", @options.db_port
-		@emit 'connection'
+	setupModels: ->
+		User: require('../models/user')(@Thinky)
+		Issue: require('../models/issue')(@Thinky)

@@ -24,10 +24,8 @@ module.exports = class App
 		@options = _.defaults opts, @defaults
 
 		@db = @_setupDatabase()
-
-		@db.on 'connection', =>
-			@webhook = @_setupWebhook()
-			@sync = @_setupSync()
+		@webhook = @_setupWebhook()
+		@sync = @_setupSync()
 
 	_setupDatabase: -> new Database @options
 	_setupWebhook: -> new Webhook @options
