@@ -17,6 +17,12 @@ module.exports = class Sync extends EventEmitter
 
 	getClient: -> new Github { version: "3.0.0" }
 
+	syncUsers: ->
+		# Syncs all users
+
+	syncLabels: ->
+		# Syncs all labels
+
 	syncIssues: ->
 		# Syncs all issues
 

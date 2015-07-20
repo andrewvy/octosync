@@ -27,6 +27,15 @@ module.exports = class App
 		@webhook = @_setupWebhook()
 		@sync = @_setupSync()
 
+	# Sync Methods
+	syncIssues: -> @sync.syncIssues()
+	syncUsers: -> @sync.syncUsers()
+	syncLabels: -> @sync.syncLabels()
+
+	# Query Methods
+	getIssueById: (id) -> @db.getIssueById(id)
+	getUserById: (id) -> @db.getUserById(id)
+
 	_setupDatabase: -> new Database @options
 	_setupWebhook: -> new Webhook @options
 	_setupSync: -> new Sync @_syncOptions()

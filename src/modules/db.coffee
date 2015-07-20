@@ -13,6 +13,9 @@ module.exports = class Database extends EventEmitter
 		port: @options.db_port
 		db: @options.db_name
 
+	getUserById: (id) -> #
+	getIssueById: (id) -> #
+
 	setupModels: ->
 		User: require('../models/user')(@Thinky)
 		Issue: require('../models/issue')(@Thinky)
