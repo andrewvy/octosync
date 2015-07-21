@@ -121,7 +121,8 @@ module.exports = class Sync extends EventEmitter
 			if (err)
 				deferred.reject err
 			else
-				@db.Models.Label.save(data, { conflict: "update" }).then (models) ->
+				formatted_labels = _.map(data, @db.formatLabel)
+				@db.Models.Label.save(formatted_labels, { conflict: "update" }).then (models) ->
 					deferred.resolve data
 
 		deferred.promise

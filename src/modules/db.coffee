@@ -41,3 +41,6 @@ module.exports = class Database extends EventEmitter
 
 		obj
 
+	formatLabel: (data={}) ->
+		data.id = data.name
+		data
