@@ -8,4 +8,5 @@ module.exports = (thinky) ->
 		name: String
 		color: String
 
+	Label.ensureIndex "name"
 	Label
