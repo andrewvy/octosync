@@ -10,7 +10,4 @@ module.exports = (thinky) ->
 		html_url: String
 		name: String
 
-	User.hasMany Issue, "assigned_issues", "id", "assignee_id"
-	User.hasMany Issue, "created_issues", "id", "creator_id"
-
 	User
