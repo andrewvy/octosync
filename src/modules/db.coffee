@@ -22,6 +22,7 @@ module.exports = class Database extends EventEmitter
 		Label: require('../models/label')(@Thinky)
 		Issue: require('../models/issue')(@Thinky)
 		Milestone: require('../models/milestone')(@Thinky)
+		Deployment: require('../models/deployment')(@Thinky)
 
 	formatIssue: (data) ->
 		obj = O.redefineProperty data, "user", "creator"
