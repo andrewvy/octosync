@@ -26,4 +26,7 @@ module.exports = (thinky) ->
 	Issue.belongsTo Milestone, "milestone", "milestone_id", "id"
 	Issue.hasAndBelongsToMany Label, "labels", "id", "id"
 
+	User.hasMany Issue, "assigned_issues", "id", "assignee_id"
+	User.hasMany Issue, "created_issues", "id", "creator_id"
+
 	Issue

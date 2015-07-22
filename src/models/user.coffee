@@ -3,8 +3,6 @@ User = null
 module.exports = (thinky) ->
 	if User then return User
 
-	Issue = require('./Issue')(thinky)
-
 	User = thinky.createModel "User",
 		id: Number
 		login: String
