@@ -2,7 +2,7 @@
 GithubHook = require 'githubhook'
 
 module.exports = class Webhook extends EventEmitter
-	events: ['issue_comment', 'issues']
+	events: ['issue_comment', 'issues', 'deployment']
 	constructor: (opts) ->
 		{ @db, @options } = opts
 
@@ -26,11 +26,25 @@ module.exports = class Webhook extends EventEmitter
 				@[event](data)
 
 	issue_comment: (data) ->
+		deferred = Q.defer()
 		issue = @db.formatIssue data.issue
 		@db.Models.Issue.save(issue, { conflict: "update" }).then (models) ->
 			deferred.resolve data
 
+		deferred.promise
+
 	issues: (data) ->
+		deferred = Q.defer()
 		issue = @db.formatIssue data.issue
 		@db.Models.Issue.save(issue, { conflict: "update" }).then (models) ->
 			deferred.resolve data
+
+		deferred.promise
+
+	deployment: (data) ->
+		deferred = Q.defer()
+		deployment = @db.formatDeployment data
+		@db.Models.Deployment.save(deployment, { conflict: "update" }).then (models) ->
+			deferred.resolve data
+
+		deferred.promise

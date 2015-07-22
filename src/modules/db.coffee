@@ -44,3 +44,8 @@ module.exports = class Database extends EventEmitter
 	formatLabel: (data={}) ->
 		data.id = data.name
 		data
+
+	formatDeployment: (data={}) ->
+		data.creator_id = data.creator?.id
+		delete data.creator
+		data
