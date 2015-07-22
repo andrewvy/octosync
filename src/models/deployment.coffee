@@ -5,16 +5,20 @@ module.exports = (thinky) ->
 
 	User = require('./user')(thinky)
 
+	r = thinky.r
+	type = thinky.type
+
 	Deployment = thinky.createModel "Deployment",
-		id: Number
-		url: String
-		sha: String
-		ref: String
-		task: String
-		environment: String
-		creator_id: Number
-		created_at: String
-		updated_at: String
+		id: type.number()
+		url: type.string()
+		sha: type.string()
+		ref: type.string()
+		task: type.string()
+		environment: type.string()
+		creator_id: type.number()
+		created_at: type.string()
+		updated_at: type.string()
+		deployed_at: type.date().default(r.now())
 
 	Deployment.belongsTo User, "creator", "creator_id", "id"
 
