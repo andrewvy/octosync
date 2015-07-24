@@ -33,6 +33,12 @@ module.exports = class Database extends EventEmitter
 		if obj.milestone
 			obj.milestone_id = obj.milestone.id
 
+		if obj.labels?.length
+			obj.label_ids = []
+
+			for label in obj.labels
+				obj.label_ids.push label.name
+
 		obj.creator_id = obj.user.id
 
 		# Clean up relations
