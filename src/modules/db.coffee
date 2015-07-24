@@ -13,6 +13,7 @@ module.exports = class Database extends EventEmitter
 		host: @options.db_host
 		port: @options.db_port
 		db: @options.db_name
+		authKey: @options.authKey
 
 	getUserById: (id) -> #
 	getIssueById: (id) -> #

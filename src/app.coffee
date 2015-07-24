@@ -10,6 +10,7 @@ module.exports = class App extends EventEmitter
 		db_host: "localhost"
 		db_name: "octosync"
 		db_port: 28015
+		authKey: ""
 		webhook_path: "/octosync"
 		webhook_port: 27070
 		webhook_secret: ""
