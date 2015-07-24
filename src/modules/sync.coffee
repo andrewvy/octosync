@@ -15,10 +15,12 @@ module.exports = class Sync extends EventEmitter
 			type: "oauth"
 			token: @options.token
 
-		@syncUsers()
-		@syncLabels()
-		@syncIssues()
-		@syncMilestones()
+		Q.all([@syncUsers(), @syncLabels(), @syncMilestones()]).then (values) =>
+			users = _.pluck values[0], 'id'
+			labels = _.pluck values[1], 'name'
+			milestones = _.pluck values[2], 'id'
+
+			@syncIssues(users, labels, milestones)
 
 	defaults: ->
 		user: @options.username
@@ -54,11 +56,11 @@ module.exports = class Sync extends EventEmitter
 
 		deferred.promise
 
-	syncIssues: ->
+	syncIssues: (users, labels, milestones) ->
 		deferred = Q.defer()
 		console.time "sync_issues"
 
-		@getAllIssues().then (issues) ->
+		@getAllIssues(users, labels, milestones).then (issues) ->
 			console.timeEnd "sync_issues"
 			deferred.resolve(issues)
 		, (err) ->
@@ -140,7 +142,7 @@ module.exports = class Sync extends EventEmitter
 
 		deferred.promise
 
-	getIssues: (options={}) ->
+	getIssues: (options={}, users, labels, milestones) ->
 		deferred = Q.defer()
 		opts = _.defaults @defaults(), options
 
@@ -148,19 +150,24 @@ module.exports = class Sync extends EventEmitter
 			if (err)
 				deferred.reject(err)
 			else
-				formatted_issues = _.map(data, @db.formatIssue)
+				formatted_issues = _.map data, (issue) =>
+					@db.formatIssue issue
+
+				formatted_issues = _.filter formatted_issues, (issue) =>
+					issue.creator_id in users and issue?.assignee_id in users and issue?.milestone_id in milestones
+
 				@db.Models.Issue.save(formatted_issues, {conflict: "update"}).then (models) ->
 					deferred.resolve(models)
 		deferred.promise
 
-	getAllIssues: ->
+	getAllIssues: (users, labels, milestones) ->
 		deferred = Q.defer()
 
 		@getNumberOfIssues().done (issue_count) =>
 			times = Math.ceil(issue_count / 50)
 			promises = for i in [0..times]
 				do (i) =>
-					@getIssues({ per_page: 50, page: i })
+					@getIssues({ per_page: 50, page: i }, users, labels, milestones)
 
 			Q.all(promises).then (results) ->
 				deferred.resolve(results)
