@@ -119,15 +119,23 @@ module.exports = class Sync extends EventEmitter
 		deferred = Q.defer()
 		opts = _.defaults @defaults(), options
 
-		@github_client.issues.getLabels opts, (err, data) =>
-			if (err)
-				deferred.reject err
-			else
-				formatted_labels = _.map(data, @db.formatLabel)
-				@db.Models.Label.save(formatted_labels, { conflict: "update" }).then (models) ->
-					deferred.resolve data
+		times = 5
+		promises = for i in [0..times]
+			do (i) =>
+				opts.page = i
+				@github_client.issues.getLabels opts, (err, data) =>
+					if (err)
+						deferred.reject err
+					else
+						formatted_labels = _.map(data, @db.formatLabel)
+						@db.Models.Label.save(formatted_labels, { conflict: "update" }).then (models) ->
+							deferred.resolve data
 
-		deferred.promise
+		Q.all(promises).then (results) ->
+			deferred.resolve(results)
+		, (err) ->
+			deferred.reject(err)
+
 		deferred.promise
 
 	getNumberOfIssues: (options={}) ->
