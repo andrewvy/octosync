@@ -22,9 +22,10 @@ module.exports = class Webhook extends EventEmitter
 		@github.listen()
 
 		@github.on '*', (event, repo, ref, data) ->
-			console.log "GOT EVENT: #{event}"
-			if event in ['issue_comment', 'issues', 'deployment']
-				@[event](data)
+			if event
+				console.log "GOT EVENT: #{event}"
+				if event in ['issue_comment', 'issues', 'deployment']
+					@[event](data)
 
 	issue_comment: (data) ->
 		deferred = Q.defer()
