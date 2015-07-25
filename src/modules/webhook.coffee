@@ -25,7 +25,28 @@ module.exports = class Webhook extends EventEmitter
 			if event
 				console.log "GOT EVENT: #{event}"
 				if event in ['issue_comment', 'issues', 'deployment']
-					@[event](data)
+					switch event
+						when "issue_comment"
+							deferred = Q.defer()
+							issue = @db.formatIssue data.issue
+							@db.Models.Issue.save(issue, { conflict: "update" }).then (models) ->
+								deferred.resolve data
+
+							deferred.promise
+						when "issues"
+							deferred = Q.defer()
+							issue = @db.formatIssue data.issue
+							@db.Models.Issue.save(issue, { conflict: "update" }).then (models) ->
+								deferred.resolve data
+
+							deferred.promise
+						when "deployment"
+							deferred = Q.defer()
+							deployment = @db.formatDeployment data
+							@db.Models.Deployment.save(deployment, { conflict: "update" }).then (models) ->
+								deferred.resolve data
+
+							deferred.promise
 
 	issue_comment: (data) ->
 		deferred = Q.defer()
