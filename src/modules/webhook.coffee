@@ -1,5 +1,6 @@
 {EventEmitter} = require 'events'
 GithubHook = require 'githubhook'
+Q = require 'q'
 
 module.exports = class Webhook extends EventEmitter
 	events: ['issue_comment', 'issues', 'deployment']
