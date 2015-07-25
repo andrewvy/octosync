@@ -22,7 +22,8 @@ module.exports = class Webhook extends EventEmitter
 		@github.listen()
 
 		@github.on '*', (event, repo, ref, data) ->
-			if event in @events
+			console.log "GOT EVENT: #{event}"
+			if event in ['issue_comment', 'issues', 'deployment']
 				@[event](data)
 
 	issue_comment: (data) ->
