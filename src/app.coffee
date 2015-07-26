@@ -34,6 +34,7 @@ module.exports = class App extends EventEmitter
 	syncIssues: -> @sync.syncIssues()
 	syncUsers: -> @sync.syncUsers()
 	syncLabels: -> @sync.syncLabels()
+	syncMilestones: -> @sync.syncMilestones()
 
 	# Query Methods
 	getIssueById: (id) -> @db.getIssueById(id)
