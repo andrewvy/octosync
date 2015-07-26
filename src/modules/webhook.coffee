@@ -59,6 +59,13 @@ module.exports = class Webhook extends EventEmitter
 
 	issues: (data) ->
 		deferred = Q.defer()
+
+		if !data.issue
+			return deferred.resolve()
+
+		if data.issue.milestone
+			@db.Models.Milestone.save(data.issue.milestone, { conflict: "update" })
+
 		issue = @db.formatIssue data.issue
 		@db.Models.Issue.save(issue, { conflict: "update" }).then (models) ->
 			deferred.resolve data
